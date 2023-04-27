@@ -1,0 +1,4 @@
+{
+  "presets": ["next/babel"]
+  // "plugins": [["sass", { "ssr": true, "displayName": true }]]
+}
