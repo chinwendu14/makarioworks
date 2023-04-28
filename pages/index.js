@@ -25,6 +25,8 @@ export default function Home() {
       }
     } catch (error) {}
   };
+  console.log(manageData);
+
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homeContainer__fluid}>
