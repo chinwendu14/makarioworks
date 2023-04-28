@@ -8,7 +8,6 @@ import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { imagePath } from "../images/index";
 import Card from "../components/card/Card";
 import moment from "moment-timezone";
-// import moment from "moment";
 import { getwhether } from "../restApi/restApi";
 
 export default function Home() {
@@ -26,8 +25,6 @@ export default function Home() {
       }
     } catch (error) {}
   };
-  console.log(manageData);
-  // const zone = manageData.city.timezone;
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homeContainer__fluid}>
