@@ -186,13 +186,14 @@
   }
 }
 
-@media (min-width: 767px) and (max-width: 1300px) {
+@media (min-width: 769px) and (max-width: 1300px) {
   .homeContainer {
     .homeContainer__fluid {
       width: 80%;
     }
     .nextForecast__ContainerLagosDiv {
       .nextForecast__ContainerBgImg {
+        height: 300px !important;
         .nextForecast__locationdeg {
           p {
             font-size: 56px !important;

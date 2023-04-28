@@ -7,7 +7,8 @@ import { CiLocationOn } from "react-icons/ci";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { imagePath } from "../images/index";
 import Card from "../components/card/Card";
-import moment from "moment";
+import moment from "moment-timezone";
+// import moment from "moment";
 import { getwhether } from "../restApi/restApi";
 
 export default function Home() {
@@ -25,6 +26,8 @@ export default function Home() {
       }
     } catch (error) {}
   };
+  console.log(manageData);
+  // const zone = manageData.city.timezone;
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homeContainer__fluid}>
@@ -60,13 +63,19 @@ export default function Home() {
                         key={i}
                       >
                         <p>{item.main.temp.toFixed()} &#8451;</p>
-                        {moment(item.dt).format("h:mm a") > "4pm" ? (
+                        {moment()
+                          .tz(`${item.dt} ${manageData.city.timezone}`)
+                          .format("h:mm a") > "4pm" ? (
                           <img src={imagePath.sunrise} alt="img" />
                         ) : (
                           <img src={imagePath.sunset} alt="img" />
                         )}
 
-                        <p>{moment(item.dt).format("h:mm a")}</p>
+                        <p>
+                          {moment()
+                            .tz(`${item.dt} ${manageData.city.timezone}`)
+                            .format("h:mm a")}
+                        </p>
                       </div>
                     );
                   })}
@@ -87,9 +96,15 @@ export default function Home() {
                             className={styles.nextForecast__monthDateFocastDiv}
                             key={i}
                           >
-                            <p>{moment(item.dt).format("MMMM Do")}</p>
+                            <p>
+                              {moment()
+                                .tz(`${item.dt} ${manageData.city.timezone}`)
+                                .format("MMMM Do")}
+                            </p>
 
-                            {moment(item.dt).format("h:mm a") > "4pm" ? (
+                            {moment()
+                              .tz(`${item.dt} ${manageData.city.timezone}`)
+                              .format("h:mm a") > "4pm" ? (
                               <p>
                                 <img src={imagePath.sunrise} alt="img" />
                               </p>
@@ -117,8 +132,11 @@ export default function Home() {
                           <p>
                             {manageData?.list[0].main.temp.toFixed()}&#8451;
                           </p>
-                          {moment(manageData?.list[0].dt).format("h:mm a") >
-                          "4pm" ? (
+                          {moment()
+                            .tz(
+                              `${manageData?.list[0].dt} ${manageData.city.timezone}`
+                            )
+                            .format("h:mm a") > "4pm" ? (
                             <img src={imagePath.sunrise} alt="img" />
                           ) : (
                             <img src={imagePath.sunset} alt="img" />
@@ -127,9 +145,11 @@ export default function Home() {
                       </div>
                       <div className={styles.nextForecast__sunnyDiv}>
                         <p>
-                          {moment(manageData?.list[0].dt).format(
-                            "dddd Do MMMM"
-                          )}
+                          {moment()
+                            .tz(
+                              `${manageData?.list[0].dt} ${manageData.city.timezone}`
+                            )
+                            .format("dddd Do MMMM")}
                         </p>
                         <p>{manageData?.list[0].weather[0].main}</p>
                       </div>
@@ -141,11 +161,15 @@ export default function Home() {
             {manageState === 2 && (
               <Card
                 img={`https://openweathermap.org/img/wn/${manageData?.list[0].weather[0].icon}@4x.png`}
-                day={moment(manageData?.list[0].dt).format("dddd Do MMMM")}
+                day={moment()
+                  .tz(`${manageData?.list[0].dt} ${manageData.city.timezone}`)
+                  .format("dddd Do MMMM")}
                 temp={manageData?.list[0].main.temp.toFixed()}
                 city={` ${manageData.city.country}, ${
                   manageData.city.name
-                }. ${moment(manageData?.list[0].dt).format("h:mm a")} `}
+                }. ${moment()
+                  .tz(`${manageData?.list[0].dt} ${manageData.city.timezone}`)
+                  .format("h:mm a")} `}
                 humidity={manageData?.list[0].main.humidity}
                 speed={manageData?.list[0].wind.speed}
               />
