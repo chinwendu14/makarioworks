@@ -2,7 +2,7 @@
 
 import styles from "../styles/Home.module.scss";
 import Search from "../components/search/Search";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { imagePath } from "../images/index";
@@ -25,7 +25,6 @@ export default function Home() {
       }
     } catch (error) {}
   };
-  console.log(manageData);
 
   return (
     <div className={styles.homeContainer}>
